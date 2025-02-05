@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #56636b;
+    text-align: center;
+}
+
+h1 {
+    color: #FF8200;
+    font-size: 2.5em;
+}
+
+h2 {
+    color: #ffffff;
+}
+
+temp{
+    color: #000000
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #3f86b2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

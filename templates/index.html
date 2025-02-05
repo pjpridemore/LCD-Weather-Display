@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Display</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Knoxville, TN</h1>
+        <temp>{{ temp }}°F</temp>
+        <h2>High: {{ high }} Low: {{ low }}</h2>
+        <h2>Precip: {{ rain }} inches in the next hour</h2>
+        <h2>{{ desc }}</h2>
+    </div>
+</body>
+</html>
