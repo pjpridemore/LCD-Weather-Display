@@ -25,8 +25,8 @@ def get_weather():
     current_high = round(current_data["main"]["temp_max"])
     current_low = round(current_data["main"]["temp_min"])
     icon_code = current_data["weather"][0]["icon"]
-    icon_url = f"http://openweathermap.org/img/wn/{icon_code}@2x.png"
-    current_precip_chance = round(current_data.get("pop", 0) * 100)  # Convert to percentage
+    icon_url = f"http://openweathermap.org/img/wn/{icon_code}@4x.png"
+    current_precip_chance = round(current_data.get("pop", 0) * 100)  
 
     return current_temp, current_high, current_low, current_precip_chance, icon_url
 
