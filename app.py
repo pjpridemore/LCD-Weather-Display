@@ -15,15 +15,18 @@ def get_weather():
     high_temperature = round(data["main"]["temp_max"])
     low_temperature = round(data["main"]["temp_min"])
     description = data["weather"][0]["description"]
+    # grab icon code and then generate the image
+    icon_code = data["weather"][0]["icon"]
+    icon_url = f"http://openweathermap.org/img/wn/{icon_code}@2x.png"
 
 
     rain = data.get("rain", {}).get("1h", 0)
-    return temperature, high_temperature, low_temperature, rain, description
+    return temperature, high_temperature, low_temperature, rain, description, icon_url
 
 @app.route("/")
 def home():
-    temp, high, low, rain, desc = get_weather()
-    return render_template("index.html", temp=temp, high=high, low=low, rain=rain, desc=desc)
+    temp, high, low, rain, desc, icon= get_weather()
+    return render_template("index.html", temp=temp, high=high, low=low, rain=rain, desc=desc, icon=icon)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
