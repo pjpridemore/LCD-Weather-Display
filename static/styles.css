@@ -14,7 +14,12 @@ h1 {
     padding-top: 1rem;
 }
 
-h2 {
+.day-mode h2 {
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+.night-mode h2{
     color: #ababab;
     font-size: 2rem;
 }
