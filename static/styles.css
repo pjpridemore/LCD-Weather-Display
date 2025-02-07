@@ -15,12 +15,18 @@ h1 {
 }
 
 h2 {
-    color: #ffffff;
+    color: #ababab;
     font-size: 2rem;
 }
 
-temp{
+.day-mode temp{
     color: #000000;
+    font-size: 7rem;
+    text-align: center;
+}
+
+.night-mode temp{
+    color: #ababab;
     font-size: 7rem;
     text-align: center;
 }
@@ -30,7 +36,6 @@ temp{
     width: 800px;
     height: 480px;
     margin: 0 auto;
-    background-color: #3f86b2;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
@@ -38,7 +43,17 @@ temp{
 img {
     width: 13rem;
     height: 13rem;
-    margin-top: -1rem;  /* Adjust this value to move the icon down */
-    margin-bottom: -5rem; /* Adjust for space below the icon */   
+    margin-top: -1rem;  
+    margin-bottom: -5rem;    
+}
 
+/* conditional rendering for time of day */
+.day-mode {
+    background-color: #3f86b2; 
+    color: black;
+}
+
+.night-mode {
+    background-color: #2f2f2f; 
+    color: white;
 }
