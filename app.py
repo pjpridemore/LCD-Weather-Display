@@ -32,11 +32,8 @@ def get_weather():
     # Get data for the current day
     current_data = five_forecast_data["list"][0]
     current_temp = round(current_data["main"]["temp"])
-    # current_high = round(current_data["main"]["temp_max"])
-    # current_low = round(current_data["main"]["temp_min"])
     icon_code = current_data["weather"][0]["icon"]
     icon_url = f"http://openweathermap.org/img/wn/{icon_code}@4x.png"
-    current_precip_chance = round(current_data.get("pop", 0) * 100)
 
     # get sunset time (convert from UTC to local)
     sunset_utc = five_forecast_data["city"]["sunset"]
@@ -52,7 +49,6 @@ def get_weather():
 
     return (
         current_temp,
-        current_precip_chance,
         icon_url,
         is_night,
     )
@@ -72,24 +68,28 @@ def get_daily_high_and_low():
     if "list" not in sixteen_forecast_data:
         return None, None
 
+    # daily highs and lows
     daily_data = sixteen_forecast_data["list"][0]
     daily_high = round(daily_data["temp"]["max"])
     daily_low = round(daily_data["temp"]["min"])
 
-    return (daily_high, daily_low)
+    # also getting the daily rain chance
+    precip_chance = round(daily_data.get("pop", 0) * 100)
+
+    return (daily_high, daily_low, precip_chance)
 
 
 @app.route("/")
 def home():
-    current_temp, current_precip_chance, icon, is_night = get_weather()
-    daily_high, daily_low = get_daily_high_and_low()
+    current_temp, icon, is_night = get_weather()
+    daily_high, daily_low, precip_chance = get_daily_high_and_low()
 
     return render_template(
         "index.html",
         temp=current_temp,
         high=daily_high,
         low=daily_low,
-        precip=current_precip_chance,
+        precip=precip_chance,
         icon=icon,
         is_night=is_night,
     )
