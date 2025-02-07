@@ -60,7 +60,7 @@ def get_weather():
 
 # getting the daily high and low from the 16 day api instead
 cnt = 1
-sixteen_day_URL = f"http://api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API_KEY}"
+sixteen_day_URL = f"http://api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API_KEY}&units=imperial"
 
 
 def get_daily_high_and_low():
