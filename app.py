@@ -35,17 +35,13 @@ def get_weather():
     icon_code = current_data["weather"][0]["icon"]
     icon_url = f"http://openweathermap.org/img/wn/{icon_code}@4x.png"
 
-    # get sunset time (convert from UTC to local)
-    sunset_utc = five_forecast_data["city"]["sunset"]
-    sunset_time = datetime.fromtimestamp(sunset_utc, tz=timezone.utc).astimezone(
-        local_tz
-    )
-
-    # get current time
-    current_time = datetime.now(tz=local_tz)
+    # get the time in utc
+    current_time_utc = datetime.now(pytz.UTC)
+    # trim the time to the hour
+    current_hour = int(current_time_utc.strftime("%H"))
 
     # determine if it's night
-    is_night = current_time >= sunset_time
+    is_night = current_hour >= 20 or current_hour < 7
 
     return (
         current_temp,
