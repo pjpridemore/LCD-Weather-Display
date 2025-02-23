@@ -37,13 +37,15 @@ def get_weather():
 
     # get the time in utc
     current_time_utc = datetime.now(pytz.UTC)
+
     # trim the time to the hour
     current_hour_utc = int(current_time_utc.strftime("%H"))
 
     # convert to EST
     current_hour_est = (current_hour_utc - 5 + 24) % 24
 
-    is_night = current_hour_est < 9 or current_hour_est > 19
+    # night is anytime between 7pm - 9am
+    is_night = current_hour_est <= 9 or current_hour_est >= 19
 
     return (
         current_temp,
