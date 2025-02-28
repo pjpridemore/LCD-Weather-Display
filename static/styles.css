@@ -3,39 +3,88 @@ html, body {
     padding: 0;
     height: 100%;
     overflow: hidden; 
-    font-family: "Sans-serif", "verdana";
+    font-family: "Inter", sans-serif;
 }
 
 h1 {
     color: #FF8200;
     font-size: 4rem;
     margin: -.25rem;
-    padding-bottom: 1.5rem;
     padding-top: 1rem;
 }
 
+
 .day-mode h2 {
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 2.3rem;
+    margin-bottom: -2rem;
 }
 
-.night-mode h2{
+.night-mode h2 {
+    color: #ababab;
+    font-size: 2.3rem;
+    margin-bottom: -2rem;
+}
+
+/* high and low */
+.day-mode h3 {
+    color: #ffffff;
+    font-size: 3.5rem;
+    margin-bottom: -1rem;   
+}
+
+.night-mode h3 {
+    color: #ababab;
+    font-size: 3.5rem;
+    margin-bottom: -1rem;   
+}
+
+/* Description */
+.day-mode h4 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+}
+
+.night-mode h4 {
     color: #ababab;
     font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
-.day-mode temp{
-    color: #000000;
+/* weather icon and temp alignment */
+.temp-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: .5rem;
+    margin-top: -2.5rem;
+    margin-bottom: -4rem;
+}
+
+.temp-container img {
+    width: 13rem;
+    height: 13rem;
+    margin: 0; 
+}
+
+.day-mode temp, .night-mode temp {
+    display: block;
     font-size: 7rem;
     text-align: center;
 }
 
-.night-mode temp{
-    color: #ababab;
-    font-size: 7rem;
-    text-align: center;
+.day-mode temp {
+    color: #ffffff;
 }
 
+.night-mode temp {
+    color: #ababab;
+    font-size: 6.5rem;
+}
+
+/* Container Styling */
 .container {
     text-align: center;
     width: 800px;
@@ -45,14 +94,7 @@ h1 {
     overflow: hidden;
 }
 
-img {
-    width: 13rem;
-    height: 13rem;
-    margin-top: -1rem;  
-    margin-bottom: -5rem;    
-}
-
-/* conditional rendering for time of day */
+/* Conditional rendering for time of day */
 .day-mode {
     background-color: #3f86b2; 
     color: black;

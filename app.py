@@ -21,18 +21,20 @@ local_tz = pytz.timezone("America/New_York")
 
 
 def get_weather():
-    # Request forecast data
+    # request forecast data
     response = requests.get(five_day_URL)
     five_forecast_data = response.json()
 
-    # Checking if API response is valid
+    # checking if API response is valid
     if "list" not in five_forecast_data:
         return None, None, None, None, "Error fetching data"
 
-    # Get data for the current day
+    # get data for the current day
     current_data = five_forecast_data["list"][0]
     current_temp = round(current_data["main"]["temp"])
+    feels_like = round(current_data["main"]["feels_like"])
     icon_code = current_data["weather"][0]["icon"]
+    description = current_data["weather"][0]["description"].title()
     icon_url = f"http://openweathermap.org/img/wn/{icon_code}@4x.png"
 
     # get the time in utc
@@ -47,11 +49,7 @@ def get_weather():
     # night is anytime between 7pm - 9am
     is_night = current_hour_est <= 9 or current_hour_est >= 19
 
-    return (
-        current_temp,
-        icon_url,
-        is_night,
-    )
+    return (current_temp, icon_url, is_night, feels_like, description)
 
 
 # getting the daily high and low from the 16 day api instead
@@ -60,11 +58,11 @@ sixteen_day_URL = f"http://api.openweathermap.org/data/2.5/forecast/daily?lat={l
 
 
 def get_daily_high_and_low():
-    # Request forecast data
+    # request forecast data
     response2 = requests.get(sixteen_day_URL)
     sixteen_forecast_data = response2.json()
 
-    # Checking if API response is valid
+    # checking if API response is valid
     if "list" not in sixteen_forecast_data:
         return None, None
 
@@ -81,17 +79,19 @@ def get_daily_high_and_low():
 
 @app.route("/")
 def home():
-    current_temp, icon, is_night = get_weather()
+    current_temp, icon, is_night, feels_like, description = get_weather()
     daily_high, daily_low, precip_chance = get_daily_high_and_low()
 
     return render_template(
         "index.html",
         temp=current_temp,
+        feels_like=feels_like,
         high=daily_high,
         low=daily_low,
         precip=precip_chance,
         icon=icon,
         is_night=is_night,
+        description=description,
     )
 
 

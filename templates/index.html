@@ -11,10 +11,15 @@
 <body class="{% if is_night %}night-mode{% else %}day-mode{% endif %}">
     <div class="container">
         <h1>Knoxville, TN</h1>
-        <img src="{{ icon }}" alt="Weather Icon" />
-        <temp>{{ temp }}°F</temp>
-        <h2>High: {{ high }} Low: {{ low }}</h2>
-        <h2>{{ precip }}% Chance of Precipitation</h2>
+        <h4>{{ description }}</h4>        
+        <div class="temp-container">
+            <img src="{{ icon }}" alt="Weather Icon" />
+            <temp>{{ temp }}°F</temp>
+        </div>
+        <h3>H: {{ high }} L: {{ low }}</h3>
+        <h2>Feels Like: {{ feels_like }}°F</h2> 
+        <!-- Removing the Precip Chance for now -->
+        <!-- <h2>{{ precip }}% Precip Chance</h2> -->
     </div>
 </body>
 </html>
