@@ -50,7 +50,9 @@ h1 {
 .night-mode h4 {
     color: #ababab;
     font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
 }
 
 /* weather icon and temp alignment */
@@ -71,12 +73,12 @@ h1 {
 
 .day-mode temp, .night-mode temp {
     display: block;
-    font-size: 7rem;
     text-align: center;
 }
 
 .day-mode temp {
     color: #ffffff;
+    font-size: 6.5rem;
 }
 
 .night-mode temp {
