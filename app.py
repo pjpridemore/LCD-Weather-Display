@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timezone
 import pytz
+from datetime import datetime
 
 load_dotenv()
 
@@ -18,6 +19,11 @@ five_day_URL = f"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={
 
 # local timezone (Eastern Time)
 local_tz = pytz.timezone("America/New_York")
+
+# get today's date
+current_date = datetime.now().date()
+# format the day : Mon, Jan 01
+pretty_date = current_date.strftime("%a, %b %d")
 
 
 def get_weather():
@@ -34,6 +40,8 @@ def get_weather():
     current_temp = round(current_data["main"]["temp"])
     feels_like = round(current_data["main"]["feels_like"])
     icon_code = current_data["weather"][0]["icon"]
+
+    print("Icon Code: ", icon_code)  # Debugging icon code
     description = current_data["weather"][0]["description"].title()
     icon_url = f"http://openweathermap.org/img/wn/{icon_code}@4x.png"
 
@@ -92,6 +100,7 @@ def home():
         icon=icon,
         is_night=is_night,
         description=description,
+        pretty_date=pretty_date,
     )
 
 
