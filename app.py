@@ -2,9 +2,8 @@ from flask import Flask, render_template
 import requests
 import os
 from dotenv import load_dotenv
-from datetime import datetime, timezone
-import pytz
 from datetime import datetime
+import pytz
 
 load_dotenv()
 
@@ -22,6 +21,7 @@ local_tz = pytz.timezone("America/New_York")
 
 # get today's date
 current_date = datetime.now().date()
+
 # format the day : Mon, Jan 01
 pretty_date = current_date.strftime("%a, %b %d")
 
@@ -40,32 +40,27 @@ def get_weather():
     current_temp = round(current_data["main"]["temp"])
     feels_like = round(current_data["main"]["feels_like"])
     icon_code = current_data["weather"][0]["icon"]
-
-    print("Icon Code: ", icon_code)  # Debugging icon code
     description = current_data["weather"][0]["description"].title()
+
+    # get the current local time
+    current_time_local = datetime.now(local_tz)
+
+    # determine if it's daytime (6 AM to 6 PM)
+    is_daytime = 6 <= current_time_local.hour < 18
+
+    # override the icon code to use the day icon if it's daytime
+    if is_daytime and icon_code.endswith("n"):
+        icon_code = icon_code.replace("n", "d")
+
     icon_url = f"http://openweathermap.org/img/wn/{icon_code}@4x.png"
 
-    # get the time in utc
-    current_time_utc = datetime.now(pytz.UTC)
-
-    # trim the time to the hour
-    current_hour_utc = int(current_time_utc.strftime("%H"))
-
-    # convert to EST
-    current_hour_est = (current_hour_utc - 5 + 24) % 24
-
-    # night is anytime between 7pm - 9am
-    is_night = current_hour_est <= 9 or current_hour_est >= 19
-
-    return (current_temp, icon_url, is_night, feels_like, description)
-
-
-# getting the daily high and low from the 16 day api instead
-cnt = 1
-sixteen_day_URL = f"http://api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API_KEY}&units=imperial"
+    return (current_temp, icon_url, not is_daytime, feels_like, description)
 
 
 def get_daily_high_and_low():
+    cnt = 1
+    sixteen_day_URL = f"http://api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API_KEY}&units=imperial"
+
     # request forecast data
     response2 = requests.get(sixteen_day_URL)
     sixteen_forecast_data = response2.json()
