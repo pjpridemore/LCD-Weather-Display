@@ -19,12 +19,6 @@ five_day_URL = f"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={
 # local timezone (Eastern Time)
 local_tz = pytz.timezone("America/New_York")
 
-# get today's date
-current_date = datetime.now().date()
-
-# format the day : Mon, Jan 01
-pretty_date = current_date.strftime("%a, %b %d")
-
 
 def get_weather():
     # request forecast data
@@ -82,6 +76,12 @@ def get_daily_high_and_low():
 
 @app.route("/")
 def home():
+    # the date request needs to be inside the route function so it refreshes
+    # get today's date
+    current_date = datetime.now().date()
+    # format the day : Mon, Jan 01
+    pretty_date = current_date.strftime("%a, %b %d")
+
     current_temp, icon, is_night, feels_like, description = get_weather()
     daily_high, daily_low, precip_chance = get_daily_high_and_low()
 
